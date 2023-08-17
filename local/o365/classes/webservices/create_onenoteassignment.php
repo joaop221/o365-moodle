@@ -27,6 +27,8 @@ namespace local_o365\webservices;
 
 defined('MOODLE_INTERNAL') || die();
 
+use core_external\external_api;
+
 global $CFG;
 
 require_once($CFG->dirroot.'/course/modlib.php');
@@ -34,7 +36,7 @@ require_once($CFG->dirroot.'/course/modlib.php');
 /**
  * Create assignment API class.
  */
-class create_onenoteassignment extends \external_api {
+class create_onenoteassignment extends external_api {
     /**
      * Returns description of method parameters.
      *

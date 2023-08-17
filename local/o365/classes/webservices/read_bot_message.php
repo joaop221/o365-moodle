@@ -27,10 +27,12 @@ namespace local_o365\webservices;
 
 defined('MOODLE_INTERNAL') || die();
 
+use core_external\external_api;
+
 /**
  * Get help card for user.
  */
-class read_bot_message extends \external_api {
+class read_bot_message extends external_api {
 
     /**
      * Returns description of method parameters

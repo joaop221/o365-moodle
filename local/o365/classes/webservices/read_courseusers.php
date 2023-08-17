@@ -27,6 +27,8 @@ namespace local_o365\webservices;
 
 defined('MOODLE_INTERNAL') || die();
 
+use core_external\external_api;
+
 global $CFG;
 
 require_once($CFG->dirroot.'/course/modlib.php');
@@ -34,7 +36,7 @@ require_once($CFG->dirroot.'/course/modlib.php');
 /**
  * Get a list of students in a course by course id.
  */
-class read_courseusers extends \external_api {
+class read_courseusers extends external_api {
     /**
      * Return description of method parameters.
      *
