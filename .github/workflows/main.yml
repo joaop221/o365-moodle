@@ -33,16 +33,109 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        folder: ['auth/oidc', 'blocks/microsoft', 'local/o365']
-        php: ['8.0', '8.1']
-        moodle-branch: ['MOODLE_403_STABLE']
-        database: [pgsql, mariadb]
+        include:
+          - folder: auth/oidc
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: pgsql
+            internal-deps: ""
+          - folder: auth/oidc
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: pgsql
+            internal-deps: ""
+          - folder: auth/oidc
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: mariadb
+            internal-deps: ""
+          - folder: auth/oidc
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: mariadb
+            internal-deps: ""
+          - folder: blocks/microsoft
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: pgsql
+          - folder: blocks/microsoft
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: pgsql
+            internal-deps: ""
+          - folder: blocks/microsoft
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: mariadb
+            internal-deps: ""
+          - folder: blocks/microsoft
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: mariadb
+            internal-deps: ""
+          - folder: local/o365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: pgsql
+            internal-deps: "auth/oidc"
+          - folder: local/o365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: pgsql
+            internal-deps: "auth/oidc"
+          - folder: local/o365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: mariadb
+            internal-deps: "auth/oidc"
+          - folder: repository/office365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: mariadb
+            internal-deps: "local/o365"
+          - folder: repository/office365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: pgsql
+            internal-deps: "local/o365"
+          - folder: repository/office365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: mariadb
+            internal-deps: "local/o365"
+          - folder: repository/office365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: mariadb
+            internal-deps: "local/o365"
+          - folder: theme/boost_o365teams
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: mariadb
+            internal-deps: "local/o365"
+          - folder: theme/boost_o365teams
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: pgsql
+            internal-deps: "local/o365"
+          - folder: theme/boost_o365teams
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: mariadb
+            internal-deps: "local/o365"
+          - folder: theme/boost_o365teams
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.1
+            database: mariadb
+            internal-deps: "local/o365"
 
     steps:
     - name: Check out sub repository code
       uses: actions/checkout@v4
       with:
-        sparse-checkout: ${{ matrix.folder }}
+        sparse-checkout: |
+          ${{ matrix.folder }}
+          ${{ matrix.internal-deps }}
         path: plugin
 
     - name: Setup PHP ${{ matrix.php }}
@@ -67,7 +160,11 @@ jobs:
     # Run the default install.
     - name: Install moodle-plugin-ci
       run: |
-        moodle-plugin-ci install --plugin ./plugin/${{ matrix.folder }} --db-host=127.0.0.1
+        mkdir -p ./extra-plugins
+        for $dep in ${{ matrix.internal-deps }}; do 
+          mv $dep ./extra-plugins/$dep
+        done
+        moodle-plugin-ci install --plugin ./plugin/${{ matrix.folder }} --db-host=127.0.0.1 --extra-plugins ./extra-plugins
       env:
         DB: ${{ matrix.database }}
         MOODLE_BRANCH: ${{ matrix.moodle-branch }}
