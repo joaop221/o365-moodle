@@ -34,8 +34,8 @@ jobs:
       fail-fast: false
       matrix:
         folder: ['auth/oidc', 'blocks/microsoft', 'local/o365']
-        php: ['7.4', '8.0', '8.1']
-        moodle-branch: ['main']
+        php: ['8.0', '8.1']
+        moodle-branch: ['MOODLE_403_STABLE']
         database: [pgsql, mariadb]
 
     steps:
