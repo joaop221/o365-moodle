@@ -12,10 +12,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        folder: ["auth/plugin", "local/o365"]
+        folder: ['auth/plugin', 'local/o365']
 
     steps:
-    - name: Check out repository code
+    - name: Check out sub repository code
       uses: actions/checkout@v4
       with:
         sparse-checkout: ${{ folder }}
