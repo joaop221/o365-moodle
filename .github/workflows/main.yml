@@ -88,10 +88,15 @@ jobs:
             php: 8.0
             database: mariadb
             internal-deps: "auth/oidc"
-          - folder: repository/office365
+          - folder: local/o365
             moodle-branch: 'MOODLE_403_STABLE'
             php: 8.1
             database: mariadb
+            internal-deps: "auth/oidc"
+          - folder: repository/office365
+            moodle-branch: 'MOODLE_403_STABLE'
+            php: 8.0
+            database: pgsql
             internal-deps: "local/o365"
           - folder: repository/office365
             moodle-branch: 'MOODLE_403_STABLE'
@@ -110,8 +115,8 @@ jobs:
             internal-deps: "local/o365"
           - folder: theme/boost_o365teams
             moodle-branch: 'MOODLE_403_STABLE'
-            php: 8.1
-            database: mariadb
+            php: 8.0
+            database: pgsql
             internal-deps: "local/o365"
           - folder: theme/boost_o365teams
             moodle-branch: 'MOODLE_403_STABLE'
