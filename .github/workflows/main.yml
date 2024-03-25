@@ -1,0 +1,21 @@
+# Title of the workflow
+name: Moodle Office 365 Plugin CI
+
+# Run this workflow every time a new commit pushed to your repository or PR
+# created.
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        folder: ["auth/plugin", "local/o365"]
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: ${{ folder }}
