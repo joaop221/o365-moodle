@@ -67,7 +67,7 @@ jobs:
     # Run the default install.
     - name: Install moodle-plugin-ci
       run: |
-        moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        moodle-plugin-ci install --plugin ./plugin/${{ matrix.folder }} --db-host=127.0.0.1
       env:
         DB: ${{ matrix.database }}
         MOODLE_BRANCH: ${{ matrix.moodle-branch }}
