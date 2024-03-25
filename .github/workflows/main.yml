@@ -167,7 +167,7 @@ jobs:
       run: |
         mkdir -p ./extra-plugins
         for dep in ${{ matrix.internal-deps }}; do 
-          mv $dep ./extra-plugins/$dep
+          mv ./plugin/$dep ./extra-plugins/$dep
         done
         moodle-plugin-ci install --plugin ./plugin/${{ matrix.folder }} --db-host=127.0.0.1 --extra-plugins ./extra-plugins
       env:
