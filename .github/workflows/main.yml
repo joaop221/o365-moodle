@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        folder: ['auth/plugin', 'blocks/microsoft', 'local/o365']
+        folder: ['auth/oidc', 'blocks/microsoft', 'local/o365']
         php: ['7.4', '8.0', '8.1']
         moodle-branch: ['main']
         database: [pgsql, mariadb]
