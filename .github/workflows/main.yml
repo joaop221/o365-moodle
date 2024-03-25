@@ -18,4 +18,4 @@ jobs:
     - name: Check out sub repository code
       uses: actions/checkout@v4
       with:
-        sparse-checkout: ${{ folder }}
+        sparse-checkout: ${{ matrix.folder }}
