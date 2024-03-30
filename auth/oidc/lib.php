@@ -26,25 +26,23 @@
 
 use auth_oidc\utils;
 
-defined('MOODLE_INTERNAL') || die();
-
 // IdP types.
-CONST AUTH_OIDC_IDP_TYPE_MICROSOFT_ENTRA_ID = 1;
-CONST AUTH_OIDC_IDP_TYPE_MICROSOFT_IDENTITY_PLATFORM = 2;
-CONST AUTH_OIDC_IDP_TYPE_OTHER = 3;
+const AUTH_OIDC_IDP_TYPE_MICROSOFT_ENTRA_ID = 1;
+const AUTH_OIDC_IDP_TYPE_MICROSOFT_IDENTITY_PLATFORM = 2;
+const AUTH_OIDC_IDP_TYPE_OTHER = 3;
 
 // Microsoft Entra ID / Microsoft endpoint version.
-CONST AUTH_OIDC_MICROSOFT_ENDPOINT_VERSION_UNKNOWN = 0;
-CONST AUTH_OIDC_MICROSOFT_ENDPOINT_VERSION_1 = 1;
-CONST AUTH_OIDC_MICROSOFT_ENDPOINT_VERSION_2 = 2;
+const AUTH_OIDC_MICROSOFT_ENDPOINT_VERSION_UNKNOWN = 0;
+const AUTH_OIDC_MICROSOFT_ENDPOINT_VERSION_1 = 1;
+const AUTH_OIDC_MICROSOFT_ENDPOINT_VERSION_2 = 2;
 
 // OIDC application authentication method.
-CONST AUTH_OIDC_AUTH_METHOD_SECRET = 1;
-CONST AUTH_OIDC_AUTH_METHOD_CERTIFICATE = 2;
+const AUTH_OIDC_AUTH_METHOD_SECRET = 1;
+const AUTH_OIDC_AUTH_METHOD_CERTIFICATE = 2;
 
 // OIDC application auth certificate source.
-CONST AUTH_OIDC_AUTH_CERT_SOURCE_TEXT = 1;
-CONST AUTH_OIDC_AUTH_CERT_SOURCE_FILE = 2;
+const AUTH_OIDC_AUTH_CERT_SOURCE_TEXT = 1;
+const AUTH_OIDC_AUTH_CERT_SOURCE_FILE = 2;
 
 /**
  * Initialize custom icon.
@@ -60,7 +58,7 @@ function auth_oidc_initialize_customicon($filefullname) {
     $fullpath = "/{$systemcontext->id}/auth_oidc/customicon/0{$file}";
 
     $fs = get_file_storage();
-    if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
+    if (!$file = $fs->get_file_by_hash(sha1($fullpath)) || $file->is_directory()) {
         return false;
     }
     $pixpluginsdir = 'pix_plugins/auth/oidc/0';
@@ -407,7 +405,7 @@ function auth_oidc_apply_default_email_mapping() {
  * @param array $customfields list of custom profile fields
  */
 function auth_oidc_display_auth_lock_options($settings, $auth, $userfields, $helptext, $mapremotefields, $updateremotefields,
-    $customfields = array()) {
+    $customfields = []) {
     global $DB;
 
     // Introductory explanation and help text.
